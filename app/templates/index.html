@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste de tâches</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            background-color: #f2f2f2;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        form {
+            display: inline;
+        }
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            outline: none;
+        }
+        .task-buttons {
+            display: flex;
+            align-items: center;
+        }
+        .task-buttons button {
+            background-color: #008000; /* Cambia el color de fondo a verde */
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+            outline: none;
+        }
+        .task-buttons button:hover {
+            background-color: #005200; /* Cambia el color de fondo a un verde más oscuro al pasar el ratón */
+        }
+        .complete-button {
+            margin-right: 10px;
+        }
+        del {
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Liste de tâches</h1>
+        <ul>
+            {% for task in tasks %}
+                <li>
+                    {% if task.get('completed', False) %}
+                        <del>{{ task['text'] }}</del>
+                    {% else %}
+                        {{ task['text'] }}
+                    {% endif %}
+                    <div class="task-buttons">
+                        <form method="post" action="{{ url_for('main.complete_task', task_index=loop.index-1) }}">
+                            <button class="complete-button" type="submit">Compléter</button>
+                        </form>
+                        <form method="post" action="{{ url_for('main.delete_task', task_index=loop.index-1) }}">
+                            <button type="submit">Supprimer</button>
+                        </form>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+        
+        <form method="post" action="/" autocomplete="off">
+            <input type="text" id="task" name="task" placeholder="Ajouter une nouvelle tâche..." required>
+            <button type="submit">Ajouter</button>
+        </form>
+    </div>
+</body>
+</html>
