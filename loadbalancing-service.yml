@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: taches
+  name: loadbalancing-service
+spec:
+  ports:
+    - nodePort: 30945
+      port: 8080
+      protocol: TCP
+      targetPort: 5000
+  selector:
+    app: taches
+  type: LoadBalancer

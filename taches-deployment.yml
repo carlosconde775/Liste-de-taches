@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: taches
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: taches
+  template:
+    metadata:
+      labels:
+        app: taches
+    spec:
+      containers:
+        - image: carlosconde775/liste-taches:1
+          imagePullPolicy: IfNotPresent
+          name: taches 
+      restartPolicy: Always

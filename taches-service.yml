@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: taches-service
+spec:
+  ports:
+    - nodePort: 31280
+      port: 8080
+      protocol: TCP
+      targetPort: 5000
+  selector:
+    app: taches
+  type: NodePort
