@@ -2,8 +2,8 @@ from flask import Blueprint, redirect, render_template, request, url_for
 
 main_bp = Blueprint('main', __name__)
 
-tasks = []  # Lista para almacenar tareas
-completed_tasks = []  # Lista para almacenar tareas completadas
+tasks = []  # Liste pour stocker les tâches
+completed_tasks = []  # Liste pour stocker les tâches terminées
 
 
 @main_bp.route('/', methods=['GET'])
